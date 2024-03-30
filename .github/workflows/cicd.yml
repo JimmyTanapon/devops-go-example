@@ -71,7 +71,6 @@ jobs:
   # ==============
   # gitops-versioning:
   
-<<<<<<< HEAD
   #   runs-on: ubuntu-latest
   #   needs: build-and-push-docker-image
   #   steps:
@@ -95,28 +94,3 @@ jobs:
   #         github_token: ${{ secrets.PAT }}
   #         repository: JimmyTanapon/devops-argocd
   #         branch: main
-=======
-    runs-on: ubuntu-latest
-    needs: build-and-push-docker-image
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-        with:
-          repository: JimmyTanapon/devops-argocd
-          persist-credentials: false
-          fetch-depth: 0
-      - name: change image tag
-        run: |
-          git --version
-          git config user.name "jimmy"
-          git config user.email "root@JimmyTanapon.link"
-          sed -i -E "s/ghcr.io\/JimmyTanapon\/devops-go-example.*$/ghcr.io\/JimmyTanapon\/devops-go-example:${GITHUB_SHA}/" kube-gitops/deployment.yml
-          git add kube-gitops/deployment.yml
-          git commit -m "🤖 change docker image version to ${GITHUB_SHA}"
-      - name: push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.PAT }}
-          repository: JimmyTanapon/devops-argocd
-          branch: main
->>>>>>> 13adb5209cce28777d1f0b719ec3095c9b3a78d1
